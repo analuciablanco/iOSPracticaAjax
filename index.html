@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Practica Ajax</title>
+</head>
+<body>
+    <select id="slcPaises">
+        
+    </select>
+    <button id="btnCargarPaises">Cargar paises</button>
+
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>   
+
+        //Limpiar el select
+        //Hacer la llamada al json de paises
+        //Llenar el select con la respuesta
+        function doClickCargarPaises(e) {
+            //alert('Hola');
+            $("#slcPaises").empty();
+            //GET
+            $.ajax( "paises.json" ) //Direccion URL
+
+                .done(function(data) { //Si hay respuesta exitosa
+                    
+                    //Llenar el select
+                    for(var i=0; i < data.length; i++){
+
+                        $("#slcPaises").append(
+                            "<option>" +
+                            data[i].name + 
+                            "</option>");
+
+                    }
+
+                    
+
+                })
+
+                .fail(function() { //Si hay error
+                    alert( "error" );
+                })
+
+                .always(function() { //Siempre despues de done o fail
+                    //alert( "complete" );
+                });
+ 
+
+
+        }
+
+        //Funcion que se ejecuta una vez que carga todo
+        //La hicimos mediante jQuery
+        $(function () {
+            //Código que aqui se ejecuta ya que cargó todo
+
+
+            //Toma el boton asignale un listener de un clic
+            //Responde al evento click con la funcion del parametro (en este caso el id del button)
+            $("#btnCargarPaises").click(doClickCargarPaises);
+
+        });
+    </script>
+    
+</body>
+</html>
